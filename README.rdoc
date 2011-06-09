@@ -7,13 +7,21 @@ to return pseudo-objects that have method-like accessors.
 
 === Installation
 
-As a Rails 3 plugin:
+To install as a Rails 3 plugin:
 
   script/rails plugin install git://github.com/roblambert/discogs_api.git
 
-As a Rails 2 plugin:
+To install as a Rails 2 plugin:
 
   script/plugin install git://github.com/roblambert/discogs_api.git
+
+Dependencies are managed with Bundler, make sure it is installed:
+
+  gem install bundler
+
+Then to install required gems:
+
+  bundle install
 
 === Example Usage
 
