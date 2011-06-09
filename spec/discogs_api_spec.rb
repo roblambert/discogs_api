@@ -16,11 +16,11 @@ describe DiscogsApi do
   include DiscogsApiSpecHelper
 
   before(:each) do
-    @api = DiscogsApi.new 'TestWaxFmRubyClient/0.1 +http://wax.fm'
+    @api = DiscogsApi.new 'TestRubyClient/0.1 +http://testwebsite'
   end
   
   it "should use the provided constructor arg as the user_agent" do
-    @api.user_agent.should == 'TestWaxFmRubyClient/0.1 +http://wax.fm'
+    @api.user_agent.should == 'TestRubyClient/0.1 +http://testwebsite'
   end
 
   it "should use properly encoded URLs" do
