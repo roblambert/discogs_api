@@ -22,7 +22,7 @@ class DiscogsApi
     get_resource('release', id)
   end
 
-  def search_releases(criteria, page = 2)
+  def search_releases(criteria, page = 1)
     search(criteria, 'releases', page)
   end
 
