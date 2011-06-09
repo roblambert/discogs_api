@@ -47,4 +47,6 @@ Then to install required gems:
     puts " #{track.position}) #{track.title} [#{track.duration}]"
   end
 
+More example usage in spec/discogs_api_spec.rb
+
 Copyright (c) 2011 Zabada, Inc., released under the MIT license
