@@ -1,0 +1,36 @@
+== DiscogsApi
+
+Provides simple access to the Discogs 2.0 API (see http://www.discogs.com/help/api)
+
+This plugin simply retrieves JSON from the Discogs API and wraps the response in a Hashie::Mash
+to return pseudo-objects that have method-like accessors.
+
+=== Example
+
+discogs_api = DiscogsApi.new "YourUserAgent/VERSION +http://YourWebsite"
+
+artist = discogs_api.get_artist("Van Halen")
+
+puts "Yay, retrieved #{artist.name}."
+
+puts "Their primary website is #{artist.urls.first}."
+
+puts "Their first release listed in the response is #{artist.releases.first.title} which was released on #{artist.releases.first.label}"
+
+# Let's find more information about that first listed release from the artist object...
+
+sleep 2 # Discogs asks that you do not hit the service more than once a second from an IP address!
+
+release = discogs_api.get_release(artist.releases.first.id)
+
+puts "A little more info about this release: #{release.notes}"
+
+puts "The track listing for #{release.title} by #{release.artists.first.name} is: "
+
+release.tracklist.each do |track|
+  puts " #{track.position}) #{track.title} [#{track.duration}]"
+end
+
+==== Copyright
+
+Copyright (c) 2011 Rob Lambert, released under the MIT license
