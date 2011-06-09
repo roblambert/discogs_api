@@ -1,13 +1,23 @@
 == DiscogsApi
 
-Provides simple access to the Discogs 2.0 API (see http://www.discogs.com/help/api)
+Rails plugin that provides simple access to the Discogs 2.0 API (see http://www.discogs.com/help/api)
 
 This plugin simply retrieves JSON from the Discogs API and wraps the response in a Hashie::Mash
 to return pseudo-objects that have method-like accessors.
 
+=== Installation
+
+As a Rails 3 plugin:
+
+  script/rails plugin install git://github.com/roblambert/discogs_api.git
+
+As a Rails 2 plugin:
+
+  script/plugin install git://github.com/roblambert/discogs_api.git
+
 === Example Usage
 
-  #Provide your own unique user agent when creating a DiscogsApi instance
+  #Provide your own unique user-agent when creating a DiscogsApi instance
   discogs_api = DiscogsApi.new "YourUserAgent/VERSION +http://YourWebsite"
   
   # Get an artist

@@ -8,16 +8,18 @@ class DiscogsApi
 
   attr_accessor :user_agent
 
+  BASE_URL = 'http://api.discogs.com'
+
   def initialize(user_agent = "YourUserAgentForDiscogsAPI2/YourVersion +http://youraddress")
     @user_agent = user_agent
   end
 
   def get_master(id)
-    get_resource("master", id)
+    get_resource('master', id)
   end
 
   def get_release(id)
-    get_resource("release", id)
+    get_resource('release', id)
   end
 
   def search_releases(criteria, page = 2)
@@ -40,27 +42,27 @@ class DiscogsApi
     search(criteria, 'labels')
   end
   
-  def search(criteria, resource_type = 'all', page = 1)
-    retrieve_data('search', search_url(criteria, resource_type)).searchresults
-  end
-
   def resource_url(resource, id, params = {})
-    "http://api.discogs.com/#{resource}/#{CGI.escape(id.to_s)}?f=json#{params.keys.sort.inject(""){|string,key| "#{string}&#{key}=#{CGI.escape(params[key].to_s)}"}}"
-  end
-  
-  def search_url(criteria, resource_type, page = 1 )
-    "http://api.discogs.com/search?type=#{resource_type}&f=json&page=#{page}&q=#{CGI.escape(criteria)}"
+    "#{BASE_URL}/#{resource}/#{CGI.escape(id.to_s)}?f=json#{params.keys.sort.inject(""){|string,key| "#{string}&#{key}=#{CGI.escape(params[key].to_s)}"}}"
   end
   
   private
 
   def get_resource(resource, id, params = {})
-    #TODO: deal w/ gzipped content
     retrieve_data(resource, resource_url(resource, id, params))
   end
   
   def retrieve_data(response_type, url)
+    #TODO: deal w/ gzipped content
     Hashie::Mash.new JSON.parse(open(url, {'UserAgent'=> @user_agent,'Accept-Encoding'=>'gzip'}).read)["resp"][response_type]     
+  end
+  
+  def search(criteria, resource_type = 'all', page = 1)
+    retrieve_data('search', search_url(criteria, resource_type)).searchresults
+  end
+  
+  def search_url(criteria, resource_type, page = 1 )
+    "#{BASE_URL}/search?type=#{resource_type}&f=json&page=#{page}&q=#{CGI.escape(criteria)}"
   end
 
 end

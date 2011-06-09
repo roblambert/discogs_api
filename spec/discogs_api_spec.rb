@@ -19,7 +19,7 @@ describe DiscogsApi do
     @api = DiscogsApi.new 'TestWaxFmRubyClient/0.1 +http://wax.fm'
   end
   
-  it "should use accept user agent as constructor arg" do
+  it "should use the provided constructor arg as the user_agent" do
     @api.user_agent.should == 'TestWaxFmRubyClient/0.1 +http://wax.fm'
   end
 
