@@ -29,17 +29,14 @@ As a Rails 2 plugin:
   puts "Their first release listed in the response is #{artist.releases.first.title}"
   puts " which was released on #{artist.releases.first.label}"
 
-  # Let's find more information about that first listed release from the artist object...
-  sleep 2 # Discogs asks that you do not hit the service more than once a second from an IP address!
+  sleep 1 # Discogs asks that you do not hit the service more than once a second from an IP address!
 
+  # Let's find more information about the first release listed in the artist object...
   release = discogs_api.get_release(artist.releases.first.id)
   puts "A little more info about this release: #{release.notes}"
   puts "The track listing for #{release.title} by #{release.artists.first.name} is: "
-
   release.tracklist.each do |track|
     puts " #{track.position}) #{track.title} [#{track.duration}]"
   end
-
-
 
 Copyright (c) 2011 Rob Lambert, released under the MIT license
