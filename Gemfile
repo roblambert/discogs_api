@@ -1,3 +1,4 @@
+gem "json"
 gem "hashie"
 
 group :development, :test do
