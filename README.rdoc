@@ -28,11 +28,13 @@ Then to install required gems:
 
 === Example Usage
 
-  #Provide your own unique user-agent when creating a DiscogsApi instance
-  discogs_api = DiscogsApi.new "YourUserAgent/VERSION +http://YourWebsite"
+  # Provide your own unique user-agent when creating a DiscogsApi instance,
+  # you would probably want to put this in a Rails initializer
+  DiscogsApi.user_agent = "YourUserAgent/VERSION +http://YourWebsite"
   
   # Get an artist
-  artist = Hashie::Mash.new discogs_api.get_artist("Van Halen")
+  artist_json = DiscogsApi.get_artist("Van Halen")
+  artist = Hashie::Mash.new artist_json
 
   # inspect the artist
   puts "Yay, retrieved #{artist.name}."
@@ -43,7 +45,8 @@ Then to install required gems:
   sleep 1 # :) Discogs asks that you do not hit the service more than once a second from an IP address!
 
   # Let's find more information about the first release listed in the artist object...
-  release = Hashie::Mash.new discogs_api.get_release(artist.releases.first.id)
+  release_json = DiscogsApi.get_release(artist.releases.first.id)
+  release = Hashie::Mash.new release_json
   puts "A little more info about this release: #{release.notes}"
   puts "The track listing for #{release.title} by #{release.artists.first.name} is: "
   release.tracklist.each do |track|
