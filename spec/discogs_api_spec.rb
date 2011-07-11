@@ -32,7 +32,7 @@ describe DiscogsApi do
   it "should retrieve a master release" do
     mock_resource(@api, 'master', '45526')
 
-    master = @api.get_master('45526')
+    master = Hashie::Mash.new @api.get_master('45526')
     master.id.should == 45526
     master.main_release.should == 375379
     master.artists.first.name.should == "Beatles, The"
@@ -41,7 +41,7 @@ describe DiscogsApi do
   it "should retrieve a release" do
     mock_resource(@api, 'release', '375379')
 
-    release = @api.get_release('375379')
+    release = Hashie::Mash.new @api.get_release('375379')
     release.id.should == 375379
     release.title.should == 'Rubber Soul'
     release.artists.first.name.should == "Beatles, The"
@@ -51,7 +51,7 @@ describe DiscogsApi do
   it "should retrieve an Artist" do
     mock_resource(@api, 'artist', 'Van Halen')
 
-    artist = @api.get_artist('Van Halen')
+    artist = Hashie::Mash.new @api.get_artist('Van Halen')
     artist.name.should == 'Van Halen'
     artist.urls.first.should == "http://www.van-halen.com"
   end
@@ -59,7 +59,7 @@ describe DiscogsApi do
   it "should retrieve a label" do
     mock_resource(@api, 'label', 'Sire')
 
-    label = @api.get_label('Sire')
+    label = Hashie::Mash.new @api.get_label('Sire')
     label.name.should == 'Sire'
     label.parentLabel.should == 'Warner Bros. Records'
     label.urls.first.should == 'http://www.sirerecords.com/'
@@ -69,7 +69,7 @@ describe DiscogsApi do
   it "should search for releases first page when not specified" do
     mock_search(@api, 'releases', 'van')
 
-    releases = @api.search_releases('van')
+    releases = Hashie::Mash.new @api.search_releases('van')
     releases.numResults.should == '83377'
     releases.start.should == '1'
     releases.results.first.title.should == 'Van - Ludwig Van'
@@ -79,7 +79,7 @@ describe DiscogsApi do
   it "should search for releases specified page" do
     mock_search(@api, 'releases', 'van', 2)
 
-    releases = @api.search_releases('van', 2)
+    releases = Hashie::Mash.new @api.search_releases('van', 2)
     releases.numResults.should == '83377'
     releases.start.should == '21'
     releases.results.first.title.should == 'Alias (6) - Can I / Van Cleef'
@@ -89,7 +89,7 @@ describe DiscogsApi do
   it "should search for artists first page" do
     mock_search(@api, 'artists', 'van')
 
-    artists = @api.search_artists('van')
+    artists = Hashie::Mash.new @api.search_artists('van')
     artists.numResults.should == '5521'
     artists.start.should == '1'
     artists.results.first.title.should == 'Van Cephus'
@@ -99,7 +99,7 @@ describe DiscogsApi do
   it "should search for artists specified page" do
     mock_search(@api, 'artists', 'van', 2)
 
-    artists = @api.search_artists('van', 2)
+    artists = Hashie::Mash.new @api.search_artists('van', 2)
     artists.numResults.should == '5521'
     artists.start.should == '21'
     artists.results.first.title.should == 'van Andel'
@@ -109,7 +109,7 @@ describe DiscogsApi do
   it "should search for labels first page" do
     mock_search(@api, 'labels', 'van')
 
-    labels = @api.search_labels('van')
+    labels = Hashie::Mash.new @api.search_labels('van')
     labels.numResults.should == '205'
     labels.start.should == '1'
     labels.results.first.title.should == 'Van Record Company'
@@ -118,7 +118,7 @@ describe DiscogsApi do
   it "should search for labels specified page" do
     mock_search(@api, 'labels', 'van', 2)
 
-    labels = @api.search_artists('van', 2)
+    labels = Hashie::Mash.new @api.search_artists('van', 2)
     labels.numResults.should == '205'
     labels.start.should == '21'
     labels.results.first.title.should == 'Funny Vinyl'

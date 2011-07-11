@@ -54,11 +54,11 @@ class DiscogsApi
   
   def retrieve_data(response_type, url)
     #TODO: deal w/ gzipped content
-    Hashie::Mash.new JSON.parse(open(url, {'UserAgent'=> @user_agent,'Accept-Encoding'=>'gzip'}).read)["resp"][response_type]     
+    JSON.parse(open(url, {'UserAgent'=> @user_agent,'Accept-Encoding'=>'gzip'}).read)["resp"][response_type]     
   end
   
   def search(criteria, resource_type = 'all', page = 1)
-    retrieve_data('search', search_url(criteria, resource_type)).searchresults
+    retrieve_data('search', search_url(criteria, resource_type))["searchresults"]
   end
   
   def search_url(criteria, resource_type, page = 1 )

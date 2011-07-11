@@ -2,8 +2,11 @@
 
 Rails plugin that provides simple access to the Discogs 2.0 API (see http://www.discogs.com/help/api)
 
-This plugin simply retrieves JSON from the Discogs API and wraps the response in a Hashie::Mash
-to return pseudo-objects that have method-like accessors.
+This plugin simply retrieves JSON from the Discogs API.
+(Initially this wrapped the response in a Hashie::Mash to 
+return pseudo-objects that have method-like accessors,
+but decided to just return the raw JSON. Feel free to use
+the awesome Hashie with the returned JSON!)
 
 === Installation
 
@@ -29,7 +32,7 @@ Then to install required gems:
   discogs_api = DiscogsApi.new "YourUserAgent/VERSION +http://YourWebsite"
   
   # Get an artist
-  artist = discogs_api.get_artist("Van Halen")
+  artist = Hashie::Mash.new discogs_api.get_artist("Van Halen")
 
   # inspect the artist
   puts "Yay, retrieved #{artist.name}."
@@ -40,7 +43,7 @@ Then to install required gems:
   sleep 1 # :) Discogs asks that you do not hit the service more than once a second from an IP address!
 
   # Let's find more information about the first release listed in the artist object...
-  release = discogs_api.get_release(artist.releases.first.id)
+  release = Hashie::Mash.new discogs_api.get_release(artist.releases.first.id)
   puts "A little more info about this release: #{release.notes}"
   puts "The track listing for #{release.title} by #{release.artists.first.name} is: "
   release.tracklist.each do |track|
